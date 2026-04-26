@@ -103,7 +103,10 @@ git clone https://github.com/your-username/PBLCF.git
 cd PBLCF
 pip install -r requirements.txt
 
-## Citation
+---
+
+---
 Gholamnia, K., et al. (2026).
 Comparative Evaluation of DYNA-CLUE and a Python-Based Machine Learning Framework for Long-Term LULC Simulation.
 (Under review)
+
