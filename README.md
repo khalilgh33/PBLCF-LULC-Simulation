@@ -222,5 +222,5 @@ python 01-count_pixel.py
 python 02-transional_matrix.py
 python 03.0-corrolation.py
 python 03-probabilitymappingPlus_accuracy_RF_2000_to_2010+roc.py
-python "05- Allocation_2010to2050new+iteraion.py"
+python 05- Allocation_2010to2050new+iteraion.py
 python 05-Accuracy_Simulation_model.py
