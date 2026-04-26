@@ -1,227 +1,226 @@
 # 🌍 PBLCF: Python-Based Land Use / Land Cover Framework
 
-PBLCF is a Python-based framework for simulating **Land Use / Land Cover (LULC) changes** using a hybrid approach that integrates **Random Forest (RF)** and **Cellular Automata–Markov (CA–Markov)**.
+PBLCF is a Python-based framework for simulating **Land Use / Land Cover (LULC)** changes using a hybrid approach that integrates **Random Forest (RF)** and **Cellular Automata–Markov (CA–Markov)**.
 
-It generates **spatially explicit future land-use scenarios** by combining data-driven transition modeling with rule-based spatial allocation.
+It generates spatially explicit future LULC scenarios by combining **data-driven transition potential modeling** with **rule-based spatial allocation**.
 
 ---
 
 ## 🔍 Overview
 
-PBLCF follows a three-stage workflow:
+PBLCF follows three main modeling components:
 
-1. **Transition Learning (Machine Learning)**
-   - RF learns transition suitability from historical LULC changes
+1. **Demand Estimation**
+   - Markov Chain estimates future land-use demand.
 
-2. **Demand Estimation (Markov Chain)**
-   - Estimates future land-use demand using transition probabilities
+2. **Transition Potential Modeling**
+   - Random Forest learns transition suitability from historical LULC changes.
 
-3. **Spatial Allocation (Cellular Automata)**
-   - Allocates changes based on:
-     - Neighborhood effects
-     - Transition rules
-     - Conversion resistance
+3. **Spatial Allocation**
+   - Cellular Automata allocates future changes using neighborhood effects, transition rules, and conversion resistance.
 
 ---
 
 ## ⚙️ Features
 
-- Hybrid **ML + CA–Markov** framework  
+- Hybrid **RF + CA–Markov** workflow  
 - Pixel-level spatial simulation  
-- Scenario-based modeling (BAU, Conservation, Sustainable Development)  
-- Integration of environmental & socio-economic drivers  
-- SHAP-based model interpretability  
-- Reproducible Python workflow  
+- Scenario-based LULC modeling  
+- Integration of environmental and socio-economic drivers  
+- Transition probability mapping  
+- Accuracy assessment and change-based validation  
+- Reproducible step-by-step Python workflow  
 
 ---
 
 ## 📊 Input Data
 
-- Multi-temporal LULC maps (e.g., 2000, 2010, 2020)
-- Environmental variables:
+- Multi-temporal LULC maps, e.g. 2000, 2010, 2020  
+- Driving factor rasters:
   - DEM, slope, aspect  
   - Distance to roads, rivers, settlements  
-  - Climate data (temperature, precipitation)  
-  - Socio-economic indicators  
+  - Climate variables  
+  - Population or socio-economic indicators  
 
 ---
 
 ## 📈 Outputs
 
-- Transition probability maps  
-- Future LULC maps (2030–2050)  
-- Scenario simulations  
-- Feature importance (RF + SHAP)  
-- Validation metrics:
-  - Overall Accuracy (OA)
-  - Kappa coefficient
+- Aligned raster datasets  
+- Transition matrices  
+- Markov-based future land demand  
+- RF-based transition probability maps  
+- Simulated future LULC maps, e.g. 2030–2050  
+- Accuracy metrics:
+  - Overall Accuracy
+  - Kappa
   - F1-score
   - ROC-AUC
-  - Figure of Merit (FoM)
-
----
-
-## 🧪 Validation
-
-- Confusion matrix  
-- ROC curve and AUC  
-- Spatial validation (FoM, allocation disagreement)
-
----
-
-## 🧰 Tech Stack
-
-- Python 3.x  
-- NumPy, Pandas  
-- Rasterio  
-- scikit-learn  
-- SHAP  
-- Matplotlib / Seaborn  
-
----
-
-## 📁 Project Structure
-# 🌍 PBLCF: Land Use / Land Cover Simulation Framework
-
-A Python-based framework for simulating future land-use/land-cover (LULC) changes using a combination of:
-
-- Markov Chain (demand estimation)
-- Random Forest (transition potential modeling)
-- Cellular Automata (spatial allocation)
+  - Figure of Merit
+  - Quantity and allocation disagreement  
 
 ---
 
 ## 📁 Workflow Overview
 
-The model runs in **6 sequential steps**.  
-Each step is implemented as a separate script.
+The model runs in **7 sequential steps**.  
+Before running the simulation, define the input and output paths inside each script.
 
 ---
 
-## ⚙️ Step 0 — Pixel Statistics & Markov Demand
+## 🧩 Step 00 — Raster Alignment
+
+**Script:** `00-align_rasters.py`
+
+Aligns all raster layers to a common reference grid.
+
+It standardizes:
+
+- CRS  
+- Spatial resolution  
+- Extent  
+- Row and column size  
+- Pixel alignment  
+
+**Output:**
+
+- Aligned LULC and driving factor rasters ready for modeling
+
+---
+
+## ⚙️ Step 01 — Pixel Statistics & Markov Demand
 
 **Script:** `01-count_pixel.py`
 
-- Computes class-wise pixel counts (2000, 2010)
-- Detects observed changes
-- Builds transition probability matrix
-- Projects future land demand (e.g., 2050)
+- Computes class-wise pixel counts
+- Detects observed LULC changes
+- Builds Markov transition probabilities
+- Projects future land demand, e.g. 2050
 
 **Output:**
-- Excel file with:
+
+- Excel file containing:
   - Class counts
   - Transition matrix
   - Markov-based future demand
 
 ---
 
-## 🔁 Step 1 — Transition Matrix (Optional)
+## 🔁 Step 02 — Transition Matrix
 
 **Script:** `02-transional_matrix.py`
 
-- Generates transition matrix (1990 → 2010)
+- Generates class-to-class transition matrix
 - Produces:
-  - Counts
-  - Ratios
+  - Transition counts
+  - Transition ratios
   - Area matrix
 
 **Usage:**
-- Optional cost matrix for simulation
+
+- Can be used as an optional cost matrix for allocation
 
 ---
 
-## 📊 Step 2 — Driving Factor Analysis
+## 📊 Step 03 — Driving Factor Correlation Analysis
 
 **Script:** `03.0-corrolation.py`
 
-- Reads raster variables (e.g., slope, population, distance layers)
+- Reads raster-based driving factors
 - Removes NoData and invalid values
-- Builds dataset
 - Computes Pearson correlation matrix
 
 **Output:**
-- Correlation matrix (CSV + PNG)
-- Variable list
+
+- Correlation matrix CSV  
+- Correlation matrix figure  
+- Variable name list  
 
 ---
 
-## 🤖 Step 3 — Transition Potential Modeling (Random Forest)
+## 🤖 Step 04 — Transition Potential Modeling
 
-**Script:**  
-`03-probabilitymappingPlus_accuracy_RF_2000_to_2010+roc.py`
+**Script:** `03-probabilitymappingPlus_accuracy_RF_2000_to_2010+roc.py`
 
-- Generates change maps:
+- Generates class-specific change maps:
   - Gain
   - Loss
   - Persistence
-- Trains Random Forest per class
-- Produces:
-  - Probability maps
-  - Accuracy metrics
-  - ROC curves
+- Trains Random Forest models for each LULC class
+- Produces transition probability maps
+- Evaluates model performance using ROC-AUC and other metrics
 
 **Output:**
-- Probability maps (GeoTIFF)
-- Model performance results
+
+- RF transition probability maps  
+- Change maps  
+- ROC curve figure  
+- Accuracy results  
 
 ---
 
-## 🧠 Step 4 — Spatial Allocation (CA Simulation)
+## 🧠 Step 05 — Spatial Allocation / CA Simulation
 
 **Script:** `05- Allocation_2010to2050new+iteraion.py`
 
-Core simulation engine:
+This is the main simulation engine.
 
-- Inputs:
-  - Probability maps (Step 3)
-  - Markov demand (Step 0)
-  - Cost matrix (optional)
-- Applies:
-  - Neighborhood effect
-  - Class conversion rules
-  - Iterative allocation
+It uses:
 
-**Key Controls:**
-- `CLASS_SPEED` → growth rate
-- `FROM_PROTECT` → resistance to change
-- `TO_PROTECT` → resistance to expansion
+- RF probability maps  
+- Markov-based demand  
+- Neighborhood effects  
+- Optional cost matrix  
+- Class-specific transition rules  
+
+**Key controls:**
+
+- `CLASS_SPEED` → controls class growth or conversion speed  
+- `FROM_PROTECT` → controls resistance of existing classes to conversion  
+- `TO_PROTECT` → controls resistance to expansion into a target class  
+- `NB_ALPHA` → controls neighborhood influence  
 
 **Output:**
-- Predicted LULC maps (GeoTIFF)
-- PNG visualizations
-- Optional simulation video
+
+- Yearly predicted LULC maps as GeoTIFF  
+- PNG visualizations  
+- Optional simulation video  
 
 ---
 
-## 📈 Step 5 — Model Validation
+## 📈 Step 06 — Model Validation
 
 **Script:** `05-Accuracy_Simulation_model.py`
 
-- Compares simulated vs observed map
-- Computes:
+- Compares simulated LULC map with observed future LULC map
+- Calculates:
   - Confusion matrix
-  - Overall Accuracy (OA)
+  - Overall Accuracy
   - Kappa
+  - Precision
+  - Recall
   - F1-score
-  - Quantity & allocation disagreement
-  - Figure of Merit (FoM)
+  - Quantity disagreement
+  - Allocation disagreement
+  - Figure of Merit
 
 **Output:**
-- CSV / Excel reports
-- Confusion matrix plots
-- Spatial error maps
+
+- CSV and Excel validation reports  
+- Confusion matrix plots  
+- Spatial error maps  
 
 ---
 
 ## ▶️ How to Run
 
-1. Define file paths in each script
-2. Run scripts sequentially:
+Run the scripts in this order:
 
 ```bash
+python 00-align_rasters.py
 python 01-count_pixel.py
 python 02-transional_matrix.py
 python 03.0-corrolation.py
 python 03-probabilitymappingPlus_accuracy_RF_2000_to_2010+roc.py
-python 05- Allocation_2010to2050new+iteraion.py
+python "05- Allocation_2010to2050new+iteraion.py"
 python 05-Accuracy_Simulation_model.py
