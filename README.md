@@ -1,8 +1,8 @@
 # 🌍 PBLCF: Python-Based Land Use / Land Cover Framework
 
-PBLCF is a Python-based framework for simulating **Land Use / Land Cover (LULC) changes** using a hybrid modeling approach that integrates **Random Forest (RF)** and **Cellular Automata–Markov (CA–Markov)**.
+PBLCF is a Python-based framework for simulating **Land Use / Land Cover (LULC) changes** using a hybrid approach that integrates **Random Forest (RF)** and **Cellular Automata–Markov (CA–Markov)**.
 
-The framework combines **data-driven transition modeling** with **spatial allocation mechanisms** to produce realistic, scenario-based future land-use maps.
+It generates **spatially explicit future land-use scenarios** by combining data-driven transition modeling with rule-based spatial allocation.
 
 ---
 
@@ -11,13 +11,13 @@ The framework combines **data-driven transition modeling** with **spatial alloca
 PBLCF follows a three-stage workflow:
 
 1. **Transition Learning (Machine Learning)**
-   - Random Forest is used to learn transition suitability from historical LULC changes
+   - RF learns transition suitability from historical LULC changes
 
 2. **Demand Estimation (Markov Chain)**
-   - Transition probabilities are used to estimate future land-use demand
+   - Estimates future land-use demand using transition probabilities
 
 3. **Spatial Allocation (Cellular Automata)**
-   - Land-use changes are allocated spatially based on:
+   - Allocates changes based on:
      - Neighborhood effects
      - Transition rules
      - Conversion resistance
@@ -28,9 +28,9 @@ PBLCF follows a three-stage workflow:
 
 - Hybrid **ML + CA–Markov** framework  
 - Pixel-level spatial simulation  
-- Scenario-based modeling (e.g., BAU, Conservation, Sustainable Development)  
-- Integration of environmental and socio-economic drivers  
-- Model interpretability using SHAP  
+- Scenario-based modeling (BAU, Conservation, Sustainable Development)  
+- Integration of environmental & socio-economic drivers  
+- SHAP-based model interpretability  
 - Reproducible Python workflow  
 
 ---
@@ -42,15 +42,15 @@ PBLCF follows a three-stage workflow:
   - DEM, slope, aspect  
   - Distance to roads, rivers, settlements  
   - Climate data (temperature, precipitation)  
-  - Socio-economic indicators (e.g., population density)
+  - Socio-economic indicators  
 
 ---
 
 ## 📈 Outputs
 
 - Transition probability maps  
-- Future LULC maps (e.g., 2030, 2040, 2050)  
-- Scenario-based simulations  
+- Future LULC maps (2030–2050)  
+- Scenario simulations  
 - Feature importance (RF + SHAP)  
 - Validation metrics:
   - Overall Accuracy (OA)
@@ -63,10 +63,8 @@ PBLCF follows a three-stage workflow:
 
 ## 🧪 Validation
 
-The framework supports:
-
-- Confusion matrix evaluation  
-- ROC curve and AUC analysis  
+- Confusion matrix  
+- ROC curve and AUC  
 - Spatial validation (FoM, allocation disagreement)
 
 ---
@@ -83,32 +81,3 @@ The framework supports:
 ---
 
 ## 📁 Project Structure
-PBLCF/
-│── data/ # Input datasets
-│── preprocessing/ # Data preparation scripts
-│── modeling/ # Random Forest modeling
-│── allocation/ # CA-Markov allocation
-│── validation/ # Accuracy assessment
-│── outputs/ # Results and maps
-│── config.yaml # Configuration file
-│── main.py # Main execution script
-
-
----
-
-## 🚀 Installation
-
-```bash
-git clone https://github.com/your-username/PBLCF.git
-cd PBLCF
-pip install -r requirements.txt
-
----
-
----
-## Citation
-
-Gholamnia, K., et al. (2026).
-Comparative Evaluation of DYNA-CLUE and a Python-Based Machine Learning Framework for Long-Term LULC Simulation.
-(Under review)
----
