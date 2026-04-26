@@ -83,3 +83,27 @@ The framework supports:
 ---
 
 ## 📁 Project Structure
+PBLCF/
+│── data/ # Input datasets
+│── preprocessing/ # Data preparation scripts
+│── modeling/ # Random Forest modeling
+│── allocation/ # CA-Markov allocation
+│── validation/ # Accuracy assessment
+│── outputs/ # Results and maps
+│── config.yaml # Configuration file
+│── main.py # Main execution script
+
+
+---
+
+## 🚀 Installation
+
+```bash
+git clone https://github.com/your-username/PBLCF.git
+cd PBLCF
+pip install -r requirements.txt
+
+## Citation
+Gholamnia, K., et al. (2026).
+Comparative Evaluation of DYNA-CLUE and a Python-Based Machine Learning Framework for Long-Term LULC Simulation.
+(Under review)
