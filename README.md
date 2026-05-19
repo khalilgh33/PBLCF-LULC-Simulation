@@ -11,59 +11,64 @@ The framework generates spatially explicit future LULC scenarios by combining da
 PBLCF follows three main modeling components:
 
 1. **Demand Estimation**
-   - Markov Chain estimates future land-use demand.
+
+   * Markov Chain estimates future land-use demand.
 
 2. **Transition Potential Modeling**
-   - Random Forest learns transition suitability from historical LULC changes.
+
+   * Random Forest learns transition suitability from historical LULC changes.
 
 3. **Spatial Allocation**
-   - Cellular Automata allocates future changes using neighborhood effects, transition rules, and conversion resistance.
+
+   * Cellular Automata allocates future changes using neighborhood effects, transition rules, and conversion resistance.
 
 ---
 
 ## ⚙️ Features
 
-- Hybrid **RF + CA–Markov** workflow  
-- Pixel-level spatial simulation  
-- Scenario-based LULC modeling  
-- Integration of environmental and socio-economic drivers  
-- Transition probability mapping  
-- Accuracy assessment and change-based validation  
-- Reproducible step-by-step Python workflow  
+* Hybrid **RF + CA–Markov** workflow
+* Pixel-level spatial simulation
+* Scenario-based LULC modeling
+* Integration of environmental and socio-economic drivers
+* Transition probability mapping
+* Accuracy assessment and change-based validation
+* Reproducible step-by-step Python workflow
 
 ---
 
 ## 📊 Input Data
 
-- Multi-temporal LULC maps, e.g. 2000, 2010, 2020  
-- Driving factor rasters:
-  - DEM, slope, aspect  
-  - Distance to roads, rivers, settlements  
-  - Climate variables  
-  - Population or socio-economic indicators  
+* Multi-temporal LULC maps, e.g. 2000, 2010, 2020
+* Driving factor rasters:
+
+  * DEM, slope, aspect
+  * Distance to roads, rivers, settlements
+  * Climate variables
+  * Population or socio-economic indicators
 
 ---
 
 ## 📈 Outputs
 
-- Aligned raster datasets  
-- Transition matrices  
-- Markov-based future land demand  
-- RF-based transition probability maps  
-- Simulated future LULC maps, e.g. 2030–2050  
-- Accuracy metrics:
-  - Overall Accuracy
-  - Kappa
-  - F1-score
-  - ROC-AUC
-  - Figure of Merit
-  - Quantity and allocation disagreement  
+* Aligned raster datasets
+* Transition matrices
+* Markov-based future land demand
+* RF-based transition probability maps
+* Simulated future LULC maps, e.g. 2030–2050
+* Accuracy metrics:
+
+  * Overall Accuracy
+  * Kappa
+  * F1-score
+  * ROC-AUC
+  * Figure of Merit
+  * Quantity and allocation disagreement
 
 ---
 
 ## 📁 Workflow Overview
 
-The model runs in **7 sequential steps**.  
+The model runs in **7 sequential steps**.
 Before running the simulation, define the input and output paths inside each script.
 
 ---
@@ -76,15 +81,15 @@ Aligns all raster layers to a common reference grid.
 
 It standardizes:
 
-- CRS  
-- Spatial resolution  
-- Extent  
-- Row and column size  
-- Pixel alignment  
+* CRS
+* Spatial resolution
+* Extent
+* Row and column size
+* Pixel alignment
 
 **Output:**
 
-- Aligned LULC and driving factor rasters ready for modeling
+* Aligned LULC and driving factor rasters ready for modeling
 
 ---
 
@@ -92,17 +97,18 @@ It standardizes:
 
 **Script:** `01-count_pixel.py`
 
-- Computes class-wise pixel counts
-- Detects observed LULC changes
-- Builds Markov transition probabilities
-- Projects future land demand, e.g. 2050
+* Computes class-wise pixel counts
+* Detects observed LULC changes
+* Builds Markov transition probabilities
+* Projects future land demand, e.g. 2050
 
 **Output:**
 
-- Excel file containing:
-  - Class counts
-  - Transition matrix
-  - Markov-based future demand
+* Excel file containing:
+
+  * Class counts
+  * Transition matrix
+  * Markov-based future demand
 
 ---
 
@@ -110,15 +116,16 @@ It standardizes:
 
 **Script:** `02-transional_matrix.py`
 
-- Generates class-to-class transition matrix
-- Produces:
-  - Transition counts
-  - Transition ratios
-  - Area matrix
+* Generates class-to-class transition matrix
+* Produces:
+
+  * Transition counts
+  * Transition ratios
+  * Area matrix
 
 **Usage:**
 
-- Can be used as an optional cost matrix for allocation
+* Can be used as an optional cost matrix for allocation
 
 ---
 
@@ -126,15 +133,15 @@ It standardizes:
 
 **Script:** `03.0-corrolation.py`
 
-- Reads raster-based driving factors
-- Removes NoData and invalid values
-- Computes Pearson correlation matrix
+* Reads raster-based driving factors
+* Removes NoData and invalid values
+* Computes Pearson correlation matrix
 
 **Output:**
 
-- Correlation matrix CSV  
-- Correlation matrix figure  
-- Variable name list  
+* Correlation matrix CSV
+* Correlation matrix figure
+* Variable name list
 
 ---
 
@@ -142,20 +149,21 @@ It standardizes:
 
 **Script:** `03-probabilitymappingPlus_accuracy_RF_2000_to_2010+roc.py`
 
-- Generates class-specific change maps:
-  - Gain
-  - Loss
-  - Persistence
-- Trains Random Forest models for each LULC class
-- Produces transition probability maps
-- Evaluates model performance using ROC-AUC and other metrics
+* Generates class-specific change maps:
+
+  * Gain
+  * Loss
+  * Persistence
+* Trains Random Forest models for each LULC class
+* Produces transition probability maps
+* Evaluates model performance using ROC-AUC and other metrics
 
 **Output:**
 
-- RF transition probability maps  
-- Change maps  
-- ROC curve figure  
-- Accuracy results  
+* RF transition probability maps
+* Change maps
+* ROC curve figure
+* Accuracy results
 
 ---
 
@@ -167,24 +175,24 @@ This is the main simulation engine.
 
 It uses:
 
-- RF probability maps  
-- Markov-based demand  
-- Neighborhood effects  
-- Optional cost matrix  
-- Class-specific transition rules  
+* RF probability maps
+* Markov-based demand
+* Neighborhood effects
+* Optional cost matrix
+* Class-specific transition rules
 
 **Key controls:**
 
-- `CLASS_SPEED` → controls class growth or conversion speed  
-- `FROM_PROTECT` → controls resistance of existing classes to conversion  
-- `TO_PROTECT` → controls resistance to expansion into a target class  
-- `NB_ALPHA` → controls neighborhood influence  
+* `CLASS_SPEED` → controls class growth or conversion speed
+* `FROM_PROTECT` → controls resistance of existing classes to conversion
+* `TO_PROTECT` → controls resistance to expansion into a target class
+* `NB_ALPHA` → controls neighborhood influence
 
 **Output:**
 
-- Yearly predicted LULC maps as GeoTIFF  
-- PNG visualizations  
-- Optional simulation video  
+* Yearly predicted LULC maps as GeoTIFF
+* PNG visualizations
+* Optional simulation video
 
 ---
 
@@ -192,25 +200,27 @@ It uses:
 
 **Script:** `05-Accuracy_Simulation_model.py`
 
-- Compares simulated LULC map with observed future LULC map
-- Calculates:
-  - Confusion matrix
-  - Overall Accuracy
-  - Kappa
-  - Precision
-  - Recall
-  - F1-score
-  - Quantity disagreement
-  - Allocation disagreement
-  - Figure of Merit
+* Compares simulated LULC map with observed future LULC map
+* Calculates:
+
+  * Confusion matrix
+  * Overall Accuracy
+  * Kappa
+  * Precision
+  * Recall
+  * F1-score
+  * Quantity disagreement
+  * Allocation disagreement
+  * Figure of Merit
 
 **Output:**
 
-- CSV and Excel validation reports  
-- Confusion matrix plots  
-- Spatial error maps  
+* CSV and Excel validation reports
+* Confusion matrix plots
+* Spatial error maps
 
 ---
+
 ## ▶️ How to Run
 
 Run the scripts in this order:
@@ -227,3 +237,4 @@ python 06-Accuracy_Simulation_model.py
 ---
 ## Reference:
 Gholamnia et al. (2026). Environmental Modelling & Software. https://doi.org/10.1016/j.envsoft.2026.107032
+```
