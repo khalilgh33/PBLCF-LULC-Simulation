@@ -211,9 +211,6 @@ It uses:
 - Spatial error maps  
 
 ---
-Reference:
-Gholamnia et al. (2026). Environmental Modelling & Software. https://doi.org/10.1016/j.envsoft.2026.107032
----
 ## ▶️ How to Run
 
 Run the scripts in this order:
@@ -226,3 +223,8 @@ python 03-corrolation.py
 python 04-probabilitymappingPlus_accuracy_RF_2000_to_2010+roc.py
 python 05- Allocation_2010to2050new+iteraion.py
 python 06-Accuracy_Simulation_model.py
+
+---
+---
+Reference:
+Gholamnia et al. (2026). Environmental Modelling & Software. https://doi.org/10.1016/j.envsoft.2026.107032
