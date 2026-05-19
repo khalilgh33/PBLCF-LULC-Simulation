@@ -225,6 +225,6 @@ python 05- Allocation_2010to2050new+iteraion.py
 python 06-Accuracy_Simulation_model.py
 
 ---
----
 Reference:
-Gholamnia et al. (2026). Environmental Modelling & Software. https://doi.org/10.1016/j.envsoft.2026.107032
+**Gholamnia et al. (2026). Environmental Modelling & Software. https://doi.org/10.1016/j.envsoft.2026.107032
+**
