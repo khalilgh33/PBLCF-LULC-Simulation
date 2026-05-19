@@ -3,6 +3,7 @@
 PBLCF is a Python-based framework for simulating Land Use/Land Cover (LULC) change using a hybrid modelling approach that integrates Random Forest (RF) transition potential modelling with Cellular Automata–Markov (CA–Markov) spatial allocation.
 
 The framework generates spatially explicit future LULC scenarios by combining data-driven transition probability estimation with rule-based spatial simulation, allowing users to explore alternative land-use trajectories under different scenario assumptions.
+
 ---
 
 ## 🔍 Overview
