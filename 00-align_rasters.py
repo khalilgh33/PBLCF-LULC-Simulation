@@ -4,7 +4,7 @@ import rasterio
 from rasterio.warp import reproject, Resampling
 
 # === INPUTS ===
-input_folder = r"E:\Khalil\PHD_doc\software\Python\Final\Class\c2000.tif"   # folder with your .tif files
+input_folder = r"E:\Khalil\PHD_doc\software\Python\Final\Class"   # folder with your .tif files
 output_folder = r"E:\Khalil\PHD_doc\software\Python\Final\Variable" # folder for aligned rasters
 
 # Pick one raster as reference (rows, cols, resolution, CRS, extent)
